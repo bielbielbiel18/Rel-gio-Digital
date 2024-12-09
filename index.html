@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital Moderno</title>
+
+    <!-- Importando as fontes Poppins e Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f4f4f9, #ffffff);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .background-balls {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .ball {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 99, 71, 0.2);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .ball:nth-child(2) {
+            background-color: rgba(72, 61, 139, 0.2);
+            width: 100px;
+            height: 100px;
+            left: 20%;
+            animation-duration: 6s;
+        }
+
+        .ball:nth-child(3) {
+            background-color: rgba(60, 179, 113, 0.2);
+            width: 200px;
+            height: 200px;
+            left: 70%;
+            animation-duration: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .relogio {
+            font-size: clamp(40px, 10vw, 100px); 
+            font-weight: 500;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 8px;
+            background: #ffffff;
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 
+                10px 10px 30px #d1d1d8, 
+                -10px -10px 30px #ffffff;
+            border: 2px solid #eeeeee;
+            display: inline-block;
+            color: #333333;
+            animation: rgbGradient 6s infinite alternate;
+        }
+
+        .relogio span {
+            color: #ff6347;
+            animation: blink 1s infinite;
+        }
+
+        .assinatura {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555555;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .assinatura a {
+            color: #ff6347;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .assinatura a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            50.01%, 100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes rgbGradient {
+            0% { color: #ff6347; }
+            25% { color: #ffa500; }
+            50% { color: #32cd32; }
+            75% { color: #1e90ff; }
+            100% { color: #ff6347; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fundo animado com bolas coloridas flutuantes -->
+    <div class="background-balls">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+    </div>
+
+    <div class="container">
+        <div class="relogio" id="relogio"></div>
+        <div class="assinatura">
+            Feito por <a href="#" target="_blank">Gabriel Melo</a>
+        </div>
+    </div>
+
+    <script>
+        function atualizarRelogio() {
+            const relogio = document.getElementById('relogio');
+            
+            // Usando o fuso horário de São Paulo
+            const agora = new Date().toLocaleTimeString('pt-BR', { 
+                timeZone: 'America/Sao_Paulo', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+
+            relogio.innerHTML = agora.replace(/:/g, '<span>:</span>'); // Adiciona o efeito para os ":"
+        }
+
+        setInterval(atualizarRelogio, 1000);
+        atualizarRelogio(); // Atualizar imediatamente para não esperar 1 segundo
+    </script>
+
+</body>
+</html>
